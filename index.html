@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Portfolio</title>
+<meta name="viewport" content="width=device-width; initial-scale=1.0"/>
+</head>
+	<style>
+		#profile-section
+		{
+		background-color:red;
+		width:auto;
+		height:auto;
+		padding-top:20px;
+		text-align:center;
+		
+		}
+		img{
+		width:110px;
+		height:90px;
+		}
+		a{
+		text-decoration:none;
+		padding:0px;
+		margin:0px;
+		}
+		*{
+		text-decoration:none;
+		padding:3px;
+		margin:3px;
+		}
+		body{
+		background-image:url('image/back-img.jpg');
+		background-repeat:no-repeat;
+		background-size:cover;
+		position:relative;
+		background-attachment:fixed;
+		}
+		
+		main{
+		position:absolute;
+		width:90%;
+		height:auto;
+		transparent:90%;
+		padding:15px 60px;
+		}
+		#main{
+		color:red;
+		font-size:20px;
+		}
+		
+	#repos{
+	background-color:white;
+	}
+	td,th{
+	margin-left:150px;
+	paddging:40px;
+	background-color:blue;
+	color:gold;
+	font-size:22px;
+	line-height:30px;
+	
+	
+	}
+	tbody{
+	padding-left:20px;
+	}
+	hr{
+	border:5px solid gray;
+	padding:0px;
+	margin:0px;
+	}
+	tr{
+	padding:20px;}
+		
+	</style>
+	<script>
+	fetch("https://api.github.com/users/pritamthing")
+	.then(response=>response.json())
+	.then(function(data)
+	{
+	document.getElementById('pp').src=data['avatar_url']
+	document.getElementById('name').textContent=data['login']
+	document.getElementById('bio').textContent=data['bio']
+	document.getElementById('gitlink').href=data['html_url']
+	document.getElementById('profile-section').hidden=false;
+	document.getElementById('main').hidden=true;
+	})
+	
+	fetch("https://api.github.com/users/pritamthing/repos")
+	.then(response=>response.json())
+	.then(function(data)
+	{
+	data.forEach(Repos)
+	})
+	var val=''
+	function Repos(data){
+	val+="<tr>"
+	val+="<td>"+data['id']+"</td><br>"
+	val+="<td>"+data['name']+"</td><br>"
+	val+="<td>"+data['html_url']+"</td>"
+	val+="<td>"+data['full_name']+"</td>"
+	val+="</tr>"
+	document.getElementById('repos').hidden=false;
+	document.getElementById('repoid').innerHTML=val;
+	}
+
+	
+	
+	</script>
+<body>
+<main>
+<div id="main" > loading...
+</div>
+	<div id="profile-section" hidden>
+
+			<img id="pp">
+		
+			<h2 id="name"></h2>
+			<h4 id="bio"></h4>
+			<h4 id ="org"></h4>
+			<h5 > <a id="gitlink">Find me here</a></h5>
+			<hr>
+			<a class="twitter-timeline" data-width="400" data-height="400" href="https://twitter.com/pritamlama7?ref_src=twsrc%5Etfw">Tweets by pritamlama7</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+			<h2> Follow me on Twitter</h2>
+			<br>
+			<a href="https://twitter.com/pritamlama7?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @pritamlama7</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	</div>
+	
+	<div id="repos" hidden>
+	<table>
+	<th>ID</th>
+	<th>Repository</th>
+	<th>Link</th>
+	<th> Full Name</th>
+	<tbody id="repoid">
+	</tbody>
+	</table>
+	</div>
+
+	
+</main>
+<body>
+</html>
+
+
+
